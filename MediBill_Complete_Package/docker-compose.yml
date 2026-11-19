@@ -1,0 +1,28 @@
+services:
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_DB: medibill
+      POSTGRES_USER: medibill
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-change_this_db_password}
+    volumes:
+      - medibill_pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U medibill -d medibill"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  api:
+    build: ./backend
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://medibill:${POSTGRES_PASSWORD:-change_this_db_password}@db:5432/medibill
+    ports:
+      - "8001:8000"
+    depends_on:
+      db:
+        condition: service_healthy
+
+volumes:
+  medibill_pgdata:

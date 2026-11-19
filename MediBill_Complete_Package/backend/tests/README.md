@@ -1,0 +1,1 @@
+Automated API tests are not included yet. Before production, add tests for authentication, concurrent stock deduction, expiry boundaries, duplicate invoice numbers, rounding/discount rules, audit logging, and backup/restore.

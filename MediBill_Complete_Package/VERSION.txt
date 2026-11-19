@@ -1,0 +1,3 @@
+MediBill 0.3.0
+Updated: 2026-11-19
+Features: UPI payment QR (manual verification), interactive date-filtered dashboard.
